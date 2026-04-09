@@ -1,0 +1,180 @@
+@extends('layouts.admin')
+
+
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Hero Header -->
+    <div class="bg-gradient-to-r from-slate-900 via-purple-900/30 to-slate-900 py-20 mb-12 rounded-3xl shadow-2xl relative overflow-hidden border border-slate-700/50 backdrop-blur-md">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
+        <div class="relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 max-w-6xl mx-auto">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-gray-100 via-white to-gray-100/60 bg-clip-text text-transparent drop-shadow-2xl tracking-tight">
+                        <i class="fas fa-film mr-4 text-blue-400 text-3xl inline-block"></i>
+                        Movies Management
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 font-medium opacity-95 max-w-2xl mx-auto lg:mx-0">Complete movie catalog management system</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+                    <a href="{{ route('admin.movies.create') }}" class="group bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-8 py-6 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl hover:-translate-y-1 transition-all duration-500 flex items-center justify-center min-w-[280px] border-2 border-transparent hover:border-blue-400/50">
+                        <i class="fas fa-plus mr-3 group-hover:scale-110 transition-transform duration-300 text-xl"></i>
+                        Add New Movie
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    @if (session('success'))
+        <div class="mb-10 p-8 bg-gradient-to-r from-green-900/60 to-emerald-900/60 border-4 border-green-400/50 rounded-3xl backdrop-blur-xl shadow-2xl ring-2 ring-green-400/30 animate-in slide-in-from-top-4 fade-in duration-700">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-green-500/20 rounded-2xl ring-2 ring-green-400/40">
+                        <i class="fas fa-check-circle text-green-400 text-3xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-100 tracking-wide">{{ session('success') }}</span>
+                </div>
+                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-2xl transition-all duration-200 hover:scale-110 hover:rotate-12">
+                    <i class="fas fa-times text-xl text-gray-400 hover:text-white"></i>
+                </button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mb-10 p-8 bg-gradient-to-r from-red-900/60 to-rose-900/60 border-4 border-red-400/50 rounded-3xl backdrop-blur-xl shadow-2xl ring-2 ring-red-400/30 animate-in slide-in-from-top-4 fade-in duration-700">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-red-500/20 rounded-2xl ring-2 ring-red-400/40">
+                        <i class="fas fa-exclamation-triangle text-red-400 text-3xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-gray-100 tracking-wide">{{ session('error') }}</span>
+                </div>
+                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-2xl transition-all duration-200 hover:scale-110 hover:rotate-12">
+                    <i class="fas fa-times text-xl text-gray-400 hover:text-white"></i>
+                </button>
+            </div>
+        </div>
+    @endif
+
+    <!-- Movies Table Card -->
+    <div class="bg-gray-900/50 backdrop-blur-xl border border-gray-700/70 rounded-3xl shadow-2xl overflow-hidden mb-12">
+        @if($movies->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="sticky top-0 z-10">
+                        <tr class="bg-gradient-to-r from-slate-800 via-blue-900/50 to-slate-800/80 border-b-4 border-blue-500/30">
+                            <th class="px-8 py-6 text-left text-xl font-black text-white uppercase tracking-wider rounded-tl-2xl">
+                                <i class="fas fa-image mr-3 text-blue-300"></i>Poster
+                            </th>
+                            <th class="px-8 py-6 text-left text-xl font-black text-white uppercase tracking-wider">
+                                <i class="fas fa-heading mr-3 text-indigo-300"></i>Movie Details
+                            </th>
+                            <th class="px-6 py-6 text-center text-xl font-black text-white uppercase tracking-wider">
+                                <i class="fas fa-stopwatch mr-2 text-emerald-300"></i>Duration
+                            </th>
+                            <th class="px-6 py-6 text-center text-xl font-black text-white uppercase tracking-wider">
+                                <i class="fas fa-tag mr-2 text-orange-300"></i>Genre
+                            </th>
+                            <th class="px-6 py-6 text-center text-xl font-black text-white uppercase tracking-wider">
+                                <i class="fas fa-calendar mr-2 text-purple-300"></i>Release
+                            </th>
+                            <th class="px-8 py-6 text-center text-xl font-black text-white uppercase tracking-wider rounded-tr-2xl">
+                                <i class="fas fa-cogs mr-3 text-amber-300"></i>Actions
+                            </th>
+                        </tr>
+                    </thead>
+<tbody class="divide-y divide-slate-800/50">
+                            @foreach($movies as $movie)
+                               <tr class="group hover:bg-slate-800/60 hover:scale-[1.01] transition-all duration-300 hover:shadow-xl">
+
+                                <td class="px-4 py-6">
+                                    @if($movie->poster)
+                                        <img src="{{ asset($movie->poster) }}" alt="{{ $movie->title }}" class="w-28 h-40 object-cover rounded-2xl ring-4 ring-slate-800/50 hover:ring-blue-500/50 hover:scale-105 transition-all duration-300 shadow-2xl"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="w-28 h-40 bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl ring-4 ring-slate-800/50 flex items-center justify-center text-2xl hidden">
+                                            <i class="fas fa-film text-gray-400"></i>
+                                        </div>
+                                    @else
+                                        <div class="w-28 h-40 bg-gradient-to-br from-gray-700 via-slate-600 to-gray-800 rounded-2xl ring-4 ring-slate-800/50 flex items-center justify-center text-2xl shadow-xl">
+                                            <i class="fas fa-film text-gray-400"></i>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-6 max-w-md">
+                                    <div class="font-black text-xl md:text-2xl text-white mb-2 line-clamp-1 group-hover:text-blue-300 transition-colors pr-4">{{ $movie->title }}</div>
+                                    @if(\Carbon\Carbon::parse($movie->release_date)->isFuture())
+    <span class="inline-block mt-2 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
+        Coming Soon
+    </span>
+@else
+    <span class="inline-block mt-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+        Now Showing
+    </span>
+@endif
+                                    <div class="text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-2 text-base pr-4">{{ Str::limit($movie->description, 120) }}</div>
+                                </td>
+                                <td class="px-6 py-6 text-center">
+                                    <span class="inline-flex px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-2xl text-lg shadow-lg ring-2 ring-emerald-400/50 hover:shadow-emerald-500/25 transition-all hover:scale-105">{{ $movie->duration }} min</span>
+                                </td>
+                                <td class="px-4 py-6 text-center">
+                                    <div class="flex flex-wrap gap-2 justify-center max-w-xs mx-auto">
+                                        @foreach(explode(',', $movie->genre) as $genre)
+                                            <span class="inline-flex px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-full text-sm shadow-md hover:shadow-orange-400/50 transition-all duration-300 hover:-translate-y-1">{{ trim($genre) }}</span>
+                                        @endforeach
+                                    </div>
+                                </td>
+                                <td class="px-6 py-6 text-center">
+                                    <span class="inline-flex px-6 py-3 bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold rounded-2xl text-lg shadow-lg ring-2 ring-purple-400/50 hover:shadow-purple-500/25 transition-all hover:scale-105">{{ \App\Helpers\DateHelper::formatAdminDate($movie->release_date) }}</span>
+                                </td>
+                                <td class="px-6 py-6">
+                                    <div class="flex gap-3 justify-center">
+                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="group p-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="Edit Movie">
+                                            <i class="fas fa-edit text-xl group-hover:scale-110 transition-transform"></i>
+                                        </a>
+                                        <form action="{{ route('admin.movies.destroy', $movie) }}" method="POST" class="inline-block" onsubmit="return confirm('Delete {{ $movie->title }}?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="group p-4 bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="Delete Movie">
+                                                <i class="fas fa-trash text-xl group-hover:scale-110 transition-transform"></i>
+                                            </button>
+                                        </form>
+                                        <a href="{{ route('movies.show', $movie) }}" class="group p-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="View Public Page" target="_blank">
+                                            <i class="fas fa-eye text-xl group-hover:scale-110 transition-transform"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="bg-slate-900/70 border-t border-slate-700/50 p-8 rounded-b-3xl backdrop-blur-xl">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                    <div class="text-gray-400 text-lg font-medium">
+                        Showing <span class="font-bold text-white">{{ $movies->firstItem() }}</span> to <span class="font-bold text-white">{{ $movies->lastItem() }}</span> of <span class="font-bold text-white">{{ $movies->total() }}</span> movies
+                    </div>
+                    <div class="flex justify-center md:justify-end">
+                        {{ $movies->appends(request()->query())->links() }}
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="text-center py-24 px-8">
+                <div class="w-48 h-48 bg-gradient-to-br from-gray-800 to-slate-900 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl ring-4 ring-slate-800/50">
+                    <i class="fas fa-film text-6xl text-gray-600"></i>
+                </div>
+                <h3 class="text-4xl md:text-5xl font-black text-gray-400 mb-6 tracking-tight">No Movies Found</h3>
+                <p class="text-xl md:text-2xl text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">Your movie collection is empty. Add movies to get started!</p>
+                <a href="{{ route('admin.movies.create') }}" class="group bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white px-12 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center justify-center mx-auto">
+                    <i class="fas fa-plus mr-4 group-hover:scale-110 transition-transform text-2xl"></i>
+                    Add First Movie
+                </a>
+            </div>
+        @endif
+    </div>
+</div>
+@endsection
