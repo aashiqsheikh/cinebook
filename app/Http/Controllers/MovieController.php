@@ -35,11 +35,21 @@ class MovieController extends Controller
     /**
      * Display the specified movie.
      */
+
     public function show(Movie $movie)
     {
-        $shows = \App\Models\Show::with(['theatre', 'movie'])
+        $cityId = session('city_id');
+
+        if (!$cityId) {
+            return redirect()->route('home')->with('error', 'Please select a city first.');
+        }
+
+$shows = \App\Models\Show::with(['theatre'])
             ->where('movie_id', $movie->id)
             ->where('show_date', '>=', now()->toDateString())
+            ->whereHas('theatre', function ($query) use ($cityId) {
+                $query->where('city_id', $cityId);
+            })
             ->orderBy('show_date')
             ->orderBy('show_time')
             ->get()
@@ -47,6 +57,7 @@ class MovieController extends Controller
 
         return view('movies.show', compact('movie', 'shows'));
     }
+
 
     /**
      * Display now showing movies for home page.

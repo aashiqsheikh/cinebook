@@ -37,10 +37,17 @@ class BookingController extends Controller
      */
     public function selectTheatre(Movie $movie)
     {
-        $theatres = Theatre::with(['shows' => function ($query) use ($movie) {
-            $query->where('movie_id', $movie->id)
-                ->where('show_date', '>=', now()->toDateString());
-        }])->get();
+        $cityId = session('city_id');
+
+        if (!$cityId) {
+            return redirect()->route('home')->with('error', 'Please select a city first.');
+        }
+
+        $theatres = Theatre::where('city_id', $cityId)
+            ->with(['shows' => function ($query) use ($movie) {
+                $query->where('movie_id', $movie->id)
+                    ->where('show_date', '>=', now()->toDateString());
+            }])->get();
 
         return view('booking.select-theatre', compact('movie', 'theatres'));
     }
@@ -48,6 +55,7 @@ class BookingController extends Controller
     /**
      * Select showtime for booking.
      */
+
     public function selectShowtime(Request $request, Movie $movie)
     {
         $theatre = Theatre::findOrFail($request->theatre_id);
@@ -55,12 +63,14 @@ class BookingController extends Controller
         $shows = Show::where('movie_id', $movie->id)
             ->where('theatre_id', $request->theatre_id)
             ->where('show_date', '>=', now()->toDateString())
+            ->where('theatre_id', $theatre->id)
             ->orderBy('show_date')
             ->orderBy('show_time')
             ->get();
 
         return view('booking.select-showtime', compact('movie', 'theatre', 'shows'));
     }
+
 
     /**
      * Select seats for booking.

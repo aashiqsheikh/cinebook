@@ -43,13 +43,13 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex flex-col lg:flex-row gap-8 pt-16 border-t-4 border-gray-700/50 mt-16">
-                            <a href="{{ route('admin.theatres.index') }}" class="flex-1 group bg-gradient-to-r from-slate-800/80 to-gray-800/80 hover:from-slate-700 hover:to-gray-700 text-gray-300 hover:text-white px-16 py-10 rounded-4xl font-black text-2xl shadow-2xl hover:shadow-3xl hover:-translate-y-4 transition-all duration-700 justify-center items-center border border-gray-600/50 hover:border-gray-400/50 backdrop-blur-xl">
-                                <i class="fas fa-arrow-left mr-6 text-3xl group-hover:-translate-x-4 transition-transform duration-700"></i>
+                        <div class="flex flex-col lg:flex-row gap-4 pt-8 border-t-4 border-gray-700/50 mt-8">
+                            <a href="{{ route('admin.theatres.index') }}" class="flex-1 group bg-slate-700 hover:bg-slate-600 text-gray-300 hover:text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 justify-center items-center">
+                                <i class="fas fa-arrow-left mr-2 text-sm group-hover:-translate-x-1 transition-transform duration-300"></i>
                                 Cancel
                             </a>
-                            <button type="submit" class="flex-1 group bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-16 py-10 rounded-4xl font-black text-2xl shadow-2xl hover:shadow-4xl hover:-translate-y-4 transition-all duration-700 justify-center items-center border border-emerald-500/50 hover:border-emerald-400/50 backdrop-blur-xl">
-                                <i class="fas fa-save mr-6 text-3xl group-hover:scale-125 transition-transform duration-700"></i>
+                            <button type="submit" class="flex-1 group bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 justify-center items-center">
+                                <i class="fas fa-save mr-2 text-sm group-hover:scale-110 transition-transform duration-300"></i>
                                 Save Theatre
                             </button>
                         </div>

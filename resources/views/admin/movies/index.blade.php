@@ -17,8 +17,8 @@
                     <p class="text-xl md:text-2xl text-gray-300 font-medium opacity-95 max-w-2xl mx-auto lg:mx-0">Complete movie catalog management system</p>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
-                    <a href="{{ route('admin.movies.create') }}" class="group bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-8 py-6 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl hover:-translate-y-1 transition-all duration-500 flex items-center justify-center min-w-[280px] border-2 border-transparent hover:border-blue-400/50">
-                        <i class="fas fa-plus mr-3 group-hover:scale-110 transition-transform duration-300 text-xl"></i>
+                    <a href="{{ route('admin.movies.create') }}" class="group bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-plus mr-2 group-hover:scale-110 transition-transform duration-300 text-sm"></i>
                         Add New Movie
                     </a>
                 </div>
@@ -36,7 +36,7 @@
                     </div>
                     <span class="text-2xl font-bold text-gray-100 tracking-wide">{{ session('success') }}</span>
                 </div>
-                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-2xl transition-all duration-200 hover:scale-110 hover:rotate-12">
+                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-lg transition-all duration-200 hover:scale-110">
                     <i class="fas fa-times text-xl text-gray-400 hover:text-white"></i>
                 </button>
             </div>
@@ -52,8 +52,8 @@
                     </div>
                     <span class="text-2xl font-bold text-gray-100 tracking-wide">{{ session('error') }}</span>
                 </div>
-                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-2xl transition-all duration-200 hover:scale-110 hover:rotate-12">
-                    <i class="fas fa-times text-xl text-gray-400 hover:text-white"></i>
+                <button onclick="this.closest('div').remove()" class="p-2 hover:bg-white/10 rounded-lg transition-all duration-200 hover:scale-110">
+                    <i class="fas fa-times text-sm text-gray-400 hover:text-white"></i>
                 </button>
             </div>
         </div>
@@ -131,18 +131,18 @@
                                 </td>
                                 <td class="px-6 py-6">
                                     <div class="flex gap-3 justify-center">
-                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="group p-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="Edit Movie">
-                                            <i class="fas fa-edit text-xl group-hover:scale-110 transition-transform"></i>
+                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="group p-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="Edit Movie">
+                                            <i class="fas fa-edit text-sm group-hover:scale-110 transition-transform"></i>
                                         </a>
                                         <form action="{{ route('admin.movies.destroy', $movie) }}" method="POST" class="inline-block" onsubmit="return confirm('Delete {{ $movie->title }}?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="group p-4 bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="Delete Movie">
-                                                <i class="fas fa-trash text-xl group-hover:scale-110 transition-transform"></i>
+                                            <button type="submit" class="group p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="Delete Movie">
+                                                <i class="fas fa-trash text-sm group-hover:scale-110 transition-transform"></i>
                                             </button>
                                         </form>
-                                        <a href="{{ route('movies.show', $movie) }}" class="group p-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:rotate-3" title="View Public Page" target="_blank">
-                                            <i class="fas fa-eye text-xl group-hover:scale-110 transition-transform"></i>
+                                        <a href="{{ route('movies.show', $movie) }}" class="group p-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="View Public Page" target="_blank">
+                                            <i class="fas fa-eye text-sm group-hover:scale-110 transition-transform"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -169,8 +169,8 @@
                 </div>
                 <h3 class="text-4xl md:text-5xl font-black text-gray-400 mb-6 tracking-tight">No Movies Found</h3>
                 <p class="text-xl md:text-2xl text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">Your movie collection is empty. Add movies to get started!</p>
-                <a href="{{ route('admin.movies.create') }}" class="group bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white px-12 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center justify-center mx-auto">
-                    <i class="fas fa-plus mr-4 group-hover:scale-110 transition-transform text-2xl"></i>
+                <a href="{{ route('admin.movies.create') }}" class="group bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl flex items-center justify-center mx-auto transition-all duration-300">
+                    <i class="fas fa-plus mr-2 group-hover:scale-110 transition-transform text-sm"></i>
                     Add First Movie
                 </a>
             </div>

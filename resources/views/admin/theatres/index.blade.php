@@ -16,8 +16,8 @@
                     </h1>
                     <p class="text-2xl md:text-3xl text-gray-300 font-semibold opacity-90 max-w-2xl mx-auto lg:mx-0 leading-relaxed">Add, edit, and remove theatres from the system</p>
                 </div>
-                <a href="{{ route('admin.theatres.create') }}" class="group bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-700 hover:to-blue-800 text-white px-12 py-8 rounded-3xl font-bold text-2xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center justify-center whitespace-nowrap border border-cyan-500/50">
-                    <i class="fas fa-plus mr-4 text-2xl group-hover:scale-125 transition-transform duration-300"></i>
+                <a href="{{ route('admin.theatres.create') }}" class="group bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center whitespace-nowrap">
+                    <i class="fas fa-plus mr-2 group-hover:scale-110 transition-transform duration-300"></i>
                     Add Theatre
                 </a>
             </div>
@@ -34,8 +34,8 @@
                     </div>
                     <span class="text-2xl font-bold text-white tracking-wide">{{ session('success') }}</span>
                 </div>
-                <button onclick="this.parentElement.parentElement.remove()" class="p-3 hover:bg-white/20 rounded-2xl transition-all duration-300 hover:scale-110 hover:rotate-180">
-                    <i class="fas fa-times text-xl text-gray-300 hover:text-white"></i>
+                <button onclick="this.parentElement.parentElement.remove()" class="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-sm text-gray-300 hover:text-white"></i>
                 </button>
             </div>
         </div>
@@ -69,14 +69,14 @@
                                     </td>
                                     <td class="px-8 py-8 text-center">
                                         <div class="flex gap-4 justify-center">
-                                            <a href="{{ route('admin.theatres.edit', $theatre->id) }}" class="group p-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-400" title="Edit Theatre">
-                                                <i class="fas fa-edit text-xl group-hover:scale-110 transition-transform"></i>
+                                            <a href="{{ route('admin.theatres.edit', $theatre->id) }}" class="group p-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300" title="Edit Theatre">
+                                                <i class="fas fa-edit text-sm group-hover:scale-110 transition-transform"></i>
                                             </a>
                                             <form action="{{ route('admin.theatres.destroy', $theatre->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete {{ $theatre->name }}?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="group p-4 bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-400" title="Delete Theatre">
-                                                    <i class="fas fa-trash text-xl group-hover:scale-110 transition-transform"></i>
+                                                <button type="submit" class="group p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300" title="Delete Theatre">
+                                                    <i class="fas fa-trash text-sm group-hover:scale-110 transition-transform"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -93,8 +93,8 @@
                     </div>
                     <h3 class="text-5xl md:text-6xl font-black text-gray-500 mb-8 tracking-tight animate-pulse">No Theatres Yet</h3>
                     <p class="text-2xl text-gray-600 mb-12 max-w-lg mx-auto leading-relaxed opacity-80">Get started by adding your first theatre to the system</p>
-                    <a href="{{ route('admin.theatres.create') }}" class="group bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-700 hover:to-blue-800 text-white px-16 py-8 rounded-4xl font-black text-2xl shadow-2xl hover:shadow-4xl hover:-translate-y-4 transition-all duration-700 inline-flex items-center">
-                        <i class="fas fa-plus mr-6 text-3xl group-hover:scale-125 transition-transform duration-500"></i>
+                    <a href="{{ route('admin.theatres.create') }}" class="group bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center">
+                        <i class="fas fa-plus mr-2 group-hover:scale-110 transition-transform duration-300"></i>
                         Add First Theatre
                     </a>
                 </div>

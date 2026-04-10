@@ -22,12 +22,12 @@
 </section>
 
 <!-- Payment Form -->
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 -mt-12 lg:-mt-20">
-    <div class="grid lg:grid-cols-2 gap-12 items-start">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 -mt-6 lg:-mt-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
         <!-- Payment Form -->
         <div>
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-4xl p-10 lg:p-12 shadow-2xl">
-                <h3 class="text-3xl font-bold text-white mb-8 flex items-center gap-4">
+            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-4xl p-6 lg:p-10 shadow-2xl">
+                <h3 class="text-2xl lg:text-3xl font-bold text-white mb-8 flex items-center gap-4">
                     <svg class="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V9a3 3 0 00-3-3H9a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                     </svg>
@@ -78,8 +78,8 @@
 
         <!-- Order Summary -->
         <div>
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-4xl p-10 lg:p-12 shadow-2xl sticky top-24 max-h-screen overflow-y-auto">
-                <h3 class="text-3xl font-bold text-white mb-8 text-center flex items-center justify-center gap-4">
+            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-4xl p-6 lg:p-10 shadow-2xl lg:sticky lg:top-24 max-h-screen overflow-y-auto">
+                <h3 class="text-2xl lg:text-3xl font-bold text-white mb-8 text-center flex items-center justify-center gap-4">
                     <svg class="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
@@ -102,11 +102,11 @@
                         <span class="block text-sm text-slate-400 font-medium uppercase tracking-wide mb-3">Date & Time</span>
                         <div class="grid grid-cols-2 gap-4 text-lg">
                             <div>
-                                <svg class="w-6 h-6 text-emerald-400 inline mr-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <svg class="w-6 h-6 text-emerald-400 inline mr-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                 <div>{{ \App\Helpers\DateHelper::formatShowDate($show->show_date) }}</div>
                             </div>
                             <div>
-                                <svg class="w-6 h-6 text-red-400 inline mr-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <svg class="w-6 h-6 text-red-400 inline mr-2 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 <div>{{ \App\Helpers\DateHelper::formatTime($show->show_time) }}</div>
                             </div>
                         </div>

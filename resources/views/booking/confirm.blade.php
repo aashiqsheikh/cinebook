@@ -95,20 +95,20 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('booking.select-seats', $show->id) }}" class="flex-1 max-w-md inline-flex items-center justify-center px-8 py-5 text-lg font-bold bg-slate-800/50 hover:bg-slate-700/50 border-2 border-slate-700/50 rounded-3xl text-slate-300 hover:text-white hover:border-slate-600/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 text-center">
-                <svg class="w-6 h-6 mr-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="{{ route('booking.select-seats', $show->id) }}" class="flex-1 inline-flex items-center justify-center px-6 py-2 text-sm font-semibold bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded-lg text-slate-300 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+                <svg class="w-4 h-4 mr-2 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
                 Change Seats
             </a>
-            <form action="{{ route('booking.store', $show->id) }}" method="POST" class="flex-1 max-w-md">
+            <form action="{{ route('booking.store', $show->id) }}" method="POST" class="flex-1">
                 @csrf
                 <input type="hidden" name="seat_number" value="{{ $seatNumber }}">
-                <button type="submit" class="w-full inline-flex items-center justify-center px-8 py-5 text-lg font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-3xl shadow-2xl hover:shadow-3xl hover:-translate-y-1.5 transition-all duration-300 uppercase tracking-wide">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-2 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 uppercase">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                     </svg>
-                    Confirm & Pay Securely
+                    Confirm & Pay
                 </button>
             </form>
         </div>

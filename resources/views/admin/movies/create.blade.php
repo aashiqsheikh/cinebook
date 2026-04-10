@@ -79,13 +79,13 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-6 pt-12 border-t-2 border-gray-700/50 mt-12">
-                            <a href="{{ route('admin.movies.index') }}" class="flex-1 group bg-gradient-to-r from-gray-700 to-slate-700 hover:from-gray-600 hover:to-slate-600 text-gray-200 px-12 py-8 rounded-3xl font-bold text-xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 justify-center items-center border-2 border-transparent hover:border-gray-500/50">
-                                <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-2 transition-transform duration-300"></i>
+                        <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t-2 border-gray-700/50 mt-8">
+                            <a href="{{ route('admin.movies.index') }}" class="flex-1 group bg-gray-700 hover:bg-gray-600 text-gray-200 px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 justify-center items-center">
+                                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform duration-300"></i>
                                 Cancel
                             </a>
-                            <button type="submit" class="flex-1 group bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-12 py-8 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 justify-center items-center border-2 border-transparent hover:border-emerald-400/50">
-                                <i class="fas fa-rocket mr-4 group-hover:scale-110 transition-transform duration-300 text-xl"></i>
+                            <button type="submit" class="flex-1 group bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 justify-center items-center">
+                                <i class="fas fa-rocket mr-2 group-hover:scale-110 transition-transform duration-300 text-xs"></i>
                                 Add Movie
                             </button>
                         </div>

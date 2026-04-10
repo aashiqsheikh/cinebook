@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -20,8 +21,12 @@ Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.sh
 Route::get('/auth/google', [GoogleController::class, 'redirectToProvider'])->name('auth.google');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleProviderCallback']);
 
+// City Selection Route (Public - No middleware)
+Route::post('/select-city', [CityController::class, 'select'])->name('city.select');
+
 // Auth Routes (Breeze)
 require __DIR__.'/auth.php';
+
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {

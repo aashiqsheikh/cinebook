@@ -142,8 +142,15 @@
         </div>
     </main>
 
+    <!-- City Selection Modal -->
+    @if(!session('city_id'))
+        <x-city-modal />
+    @endif
+
     <!-- Footer Component -->
     <x-footer />
+
+
 
 </body>
 </html>

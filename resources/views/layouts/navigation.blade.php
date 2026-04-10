@@ -9,6 +9,28 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-6">
+                @if(session('city_id'))
+                    <div x-data="{ showModal: false }">
+                        <!-- City Selector Button -->
+                        <div class="flex items-center gap-2 px-3 py-1 bg-slate-800/50 border border-slate-700 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-700/50 transition-all group cursor-pointer"
+                             x-on:click="showModal = true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>{{ session('city_name', 'City') }}</span>
+                            <svg class="w-3 h-3 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+
+                        <!-- City Modal -->
+                        <div x-show="showModal" x-transition:duration.300 class="fixed inset-0 z-50 flex items-center justify-center p-4" x-on:click.away="showModal = false">
+                            @include('components.city-modal')
+                        </div>
+                    </div>
+                @endif
+
                 <a href="{{ route('movies.index') }}" class="text-slate-300 hover:text-white transition-colors font-medium">Movies</a>
                 <a href="{{ route('bookings.my') }}" class="text-slate-300 hover:text-white transition-colors font-medium">My Bookings</a>
 
