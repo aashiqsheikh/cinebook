@@ -12,7 +12,7 @@ A modern, full-featured Laravel application for seamless movie ticket booking, t
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Crafted with ❤️ by [Aashiq Sheikh](https://github.com/aashiqsheikh)
+Developed by [Aashiq Sheikh](https://github.com/aashiqsheikh)
 
 </div>
 

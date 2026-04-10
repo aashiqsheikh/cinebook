@@ -99,13 +99,10 @@
         <div class="border-t border-slate-800 my-8"></div>
 
         <!-- Copyright Section -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center">
             <p class="text-slate-500 text-sm">
-                &copy; {{ date('Y') }} CineBook. All rights reserved.
+                &copy; 2026 CineBook. All rights reserved.
             </p>
-            <div class="flex items-center gap-4 text-slate-500 text-sm">
-                <span>Made with <span class="text-red-500">❤️</span> by Aashiq Sheikh</span>
-            </div>
         </div>
     </div>
 </footer>
