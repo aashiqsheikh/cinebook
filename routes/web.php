@@ -54,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/book/show/{show}/confirm', [BookingController::class, 'confirmBooking'])->name('booking.confirm');
     Route::post('/book/show/{show}', [BookingController::class, 'store'])->name('booking.store');
 
+    Route::get('/bookings/{booking}/pdf', [BookingController::class, 'downloadPDF'])->name('bookings.pdf');
+
     Route::get('/payment/checkout/{booking}', [PaymentController::class, 'checkout'])->name('payment.checkout');
     Route::post('/payment/initiate', [PaymentController::class, 'initiate'])->name('payment.initiate');
 Route::post('/payment/create-order', [PaymentController::class, 'createOrder'])->name('payment.create-order');

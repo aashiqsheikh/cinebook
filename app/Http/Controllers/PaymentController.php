@@ -124,16 +124,17 @@ class PaymentController extends Controller
     {
         $bookingId = $request->booking_id;
         $booking = Booking::findOrFail($bookingId);
+       \Illuminate\Support\Facades\Log::info('Verify Data:', $request->all());
 
         if ($booking->user_id !== Auth::id() || $booking->payment_status !== 'pending') {
             return response()->json(['error' => 'Invalid booking'], 403);
         }
 
         $attributes = [
-            'razorpay_order_id' => $request->razorpay_order_id,
-            'razorpay_payment_id' => $request->razorpay_payment_id,
-            'razorpay_signature' => $request->razorpay_signature
-        ];
+    'razorpay_order_id' => $booking->razorpay_order_id, // FIXED
+    'razorpay_payment_id' => $request->razorpay_payment_id,
+    'razorpay_signature' => $request->razorpay_signature
+];
 
         try {
             $this->api->utility->verifyPaymentSignature($attributes);

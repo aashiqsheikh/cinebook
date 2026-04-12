@@ -55,7 +55,7 @@ class Show extends Model
     public function getBookedSeats()
     {
         return $this->bookings()
-            ->where('payment_status', 'paid') // ✅ Only confirmed bookings
+->whereIn('payment_status', ['pending', 'paid']) // ✅ Block pending + paid (15min hold)
             ->pluck('seat_number')
             ->toArray();
     }

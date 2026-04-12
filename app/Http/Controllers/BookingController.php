@@ -9,32 +9,25 @@ use App\Models\Theatre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BookingController extends Controller
 {
-    /**
-     * Display user's bookings.
-     */
     public function myBookings()
     {
-        // 🔥 Auto delete old pending bookings (older than 15 minutes)
         Booking::where('payment_status', 'pending')
             ->where('created_at', '<', Carbon::now()->subMinutes(15))
             ->delete();
 
-        // ✅ Show ONLY paid bookings
         $bookings = Booking::with(['show.movie', 'show.theatre'])
             ->where('user_id', Auth::id())
             ->where('payment_status', 'paid')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('bookings.index', compact('bookings'));
+        return view('bookings.my', compact('bookings'));
     }
 
-    /**
-     * Select theatre for booking.
-     */
     public function selectTheatre(Movie $movie)
     {
         $cityId = session('city_id');
@@ -52,10 +45,6 @@ class BookingController extends Controller
         return view('booking.select-theatre', compact('movie', 'theatres'));
     }
 
-    /**
-     * Select showtime for booking.
-     */
-
     public function selectShowtime(Request $request, Movie $movie)
     {
         $theatre = Theatre::findOrFail($request->theatre_id);
@@ -63,7 +52,6 @@ class BookingController extends Controller
         $shows = Show::where('movie_id', $movie->id)
             ->where('theatre_id', $request->theatre_id)
             ->where('show_date', '>=', now()->toDateString())
-            ->where('theatre_id', $theatre->id)
             ->orderBy('show_date')
             ->orderBy('show_time')
             ->get();
@@ -71,71 +59,75 @@ class BookingController extends Controller
         return view('booking.select-showtime', compact('movie', 'theatre', 'shows'));
     }
 
-
-    /**
-     * Select seats for booking.
-     */
     public function selectSeats(Show $show)
     {
         $theatre = $show->theatre;
         $movie = $show->movie;
 
-        // ✅ Only paid bookings should block seats
         $bookedSeats = $show->getBookedSeats();
 
         return view('booking.select-seats', compact('show', 'theatre', 'movie', 'bookedSeats'));
     }
 
-    /**
-     * Confirm and process booking.
-     */
     public function confirmBooking(Request $request, Show $show)
     {
         $validated = $request->validate([
             'seat_number' => 'required|string',
         ]);
 
-        $seatNumber = $validated['seat_number'];
+        $seats = array_map('trim', explode(',', $validated['seat_number']));
+        $seatNumber = implode(', ', $seats);
 
-        // ✅ Check only paid seats
         $bookedSeats = $show->getBookedSeats();
 
-        if (in_array($seatNumber, $bookedSeats)) {
-            return back()->with('error', 'This seat is already booked!');
+        foreach ($seats as $s) {
+            $s = trim($s);
+            if (in_array($s, $bookedSeats)) {
+                return back()->with('error', "Seat {$s} is already booked!");
+            }
         }
 
-        $totalPrice = $show->price;
+        $totalPrice = $show->price * count($seats);
 
         return view('booking.confirm', compact('show', 'seatNumber', 'totalPrice'));
     }
 
-    /**
-     * Store booking and redirect to payment.
-     */
     public function store(Request $request, Show $show)
     {
         $validated = $request->validate([
             'seat_number' => 'required|string',
         ]);
 
-        $seatNumber = $validated['seat_number'];
+        $seats = array_map('trim', explode(',', $validated['seat_number']));
 
-        // ✅ Check only paid seats (important fix)
         $bookedSeats = $show->getBookedSeats();
 
-        if (in_array($seatNumber, $bookedSeats)) {
-            return back()->with('error', 'This seat is already booked!');
+        foreach ($seats as $seatNumber) {
+            if (in_array($seatNumber, $bookedSeats)) {
+                return back()->with('error', "Seat {$seatNumber} is already booked!");
+            }
         }
 
-        // ✅ Create pending booking
-        $booking = Booking::create([
-            'user_id' => Auth::id(),
-            'show_id' => $show->id,
-            'seat_number' => $seatNumber,
-            'total_price' => $show->price,
-            'payment_status' => 'pending',
-        ]);
+        $bookings = [];
+        foreach ($seats as $seatNumber) {
+            $booking = Booking::create([
+                'user_id' => Auth::id(),
+                'show_id' => $show->id,
+                'seat_number' => $seatNumber,
+                'total_price' => $show->price,
+                'payment_status' => 'pending',
+            ]);
+            $bookings[] = $booking;
+        }
 
-        return redirect()->route('payment.checkout', ['booking' => $booking->id]);
+        return redirect()->route('payment.checkout', ['booking' => $bookings[0]->id]);
+    }
+
+    public function downloadPDF(Booking $booking)
+    {
+        $booking->load('show.movie', 'show.theatre');
+        $pdf = Pdf::loadView('booking.success', compact('booking'));
+        return $pdf->download('ticket-' . $booking->id . '.pdf');
     }
 }
+

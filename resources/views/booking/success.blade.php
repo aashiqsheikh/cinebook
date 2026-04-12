@@ -144,12 +144,12 @@
                         </svg>
                         My Bookings
                     </a>
-                    <button onclick="printTicket()" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 uppercase tracking-wider">
+                    <a href="{{ route('bookings.pdf', $booking) }}" class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 uppercase tracking-wider">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10l-5.5 5.5m0 0L12 21l5.5-5.5m-5.5 5.5V8"/>
                         </svg>
-                        Download
-                    </button>
+                        Download PDF
+                    </a>
                 </div>
             </div>
 

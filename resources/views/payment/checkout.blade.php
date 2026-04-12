@@ -159,7 +159,12 @@ document.getElementById('rzp-button').onclick = function(e) {
         "description": "Movie Ticket Booking #{{ str_pad($booking->id, 6, '0', STR_PAD_LEFT) }}",
         "order_id": razorpayOrderId,
         "image": window.location.origin + '/favicon.ico',
+
         "handler": function(response) {
+            // Prevent navigation during verification
+            document.getElementById('rzp-button').innerHTML = '<div class="flex items-center gap-3"><svg class="animate-spin w-8 h-8 border-4 border-white/30 border-t-white rounded-full" style="width:2rem;height:2rem"></svg>Processing...</div>';
+            document.body.style.overflow = 'hidden';
+            document.querySelectorAll('button').forEach(btn => btn.disabled = true);
             verifyPayment(response);
         },
         "prefill": {
@@ -196,15 +201,21 @@ function verifyPayment(response) {
         })
     })
     .then(response => response.json())
-    .then(data => {
+.then(data => {
+        document.body.style.overflow = 'auto';
+        document.querySelectorAll('button').forEach(btn => btn.disabled = false);
         if (data.success) {
             window.location.href = data.redirect;
         } else {
+            document.getElementById('rzp-button').innerHTML = '<svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12"/></svg> Pay ₹{{ number_format($booking->total_price, 2) }} Now';
             alert('Payment verification failed. Please contact support.');
         }
     })
     .catch(error => {
+        document.body.style.overflow = 'auto';
+        document.querySelectorAll('button').forEach(btn => btn.disabled = false);
         console.error('Error:', error);
+        document.getElementById('rzp-button').innerHTML = '<svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12"/></svg> Pay ₹{{ number_format($booking->total_price, 2) }} Now';
         alert('Something went wrong. Please try again.');
     });
 }
