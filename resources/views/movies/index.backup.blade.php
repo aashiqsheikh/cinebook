@@ -141,20 +141,25 @@
             @endforeach
         </div>
 
-        <!-- Perfect Single Row: Laravel Text LEFT, Buttons RIGHT -->
-        @if($movies->hasPages())
-            <div class="mt-16 mb-12">
-                <div class="max-w-5xl mx-auto">
-                    <div class="flex items-center justify-between gap-6 bg-slate-900/20 backdrop-blur-xl border border-slate-800/30 rounded-3xl p-6 shadow-xl">
-                        <!-- Custom clean text LEFT -->
-                        <div class="results-text text-sm text-slate-400 font-medium tracking-wide flex-shrink-0 min-w-0">
-                            Showing {{ $movies->firstItem() }} to {{ $movies->lastItem() }} of {{ $movies->total() }} results
-                        </div>
 
-                        <!-- Pagination buttons RIGHT (Laravel text hidden via CSS) -->
-                        <div class="pagination-container flex items-center gap-1 flex-shrink-0">
-                            {{ $movies->onEachSide(1)->appends(request()->query())->links() }}
-                        </div>
+        <!-- Modern Cinematic Pagination -->
+        @if($movies->hasPages())
+            <div class="mt-24 mb-12">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Results Info -->
+                    <div class="text-center mb-8 p-6 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl shadow-2xl">
+                        <p class="text-slate-400 text-sm font-medium uppercase tracking-wide">
+                            Showing <span class="text-white font-bold text-lg">{{ $movies->firstItem() }}</span> to
+                            <span class="text-white font-bold text-lg">{{ $movies->lastItem() }}</span> of
+                            <span class="text-white font-bold text-lg">{{ $movies->total() }}</span> movies
+                        </p>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div class="flex items-center justify-center gap-2 bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-2 px-4 shadow-2xl">
+
+                        {{ $movies->appends(request()->query())->links() }}
+
                     </div>
                 </div>
             </div>

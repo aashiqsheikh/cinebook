@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Figtree', sans-serif;
-            background: radial-gradient(ellipse at bottom left, #8b5cf6 0%, #1e293b 50%, #0f172a 100%);
+            background: radial-gradient(ellipse at top, #1e3a8a 0%, #1e293b 50%, #0f172a 100%);
             min-height: 100vh;
         }
         .otp-input {
@@ -30,9 +30,9 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-slate-900/80 backdrop-blur-xl shadow-2xl rounded-4xl border border-slate-800/50 sm:w-full sm:max-w-md sm:rounded-3xl overflow-hidden">
             <!-- Logo -->
-            <div class="text-center mb-8 p-8 -m-6 bg-gradient-to-r from-purple-500/20 to-slate-900/50 rounded-t-3xl border-b border-slate-800/50">
+            <div class="text-center mb-8 p-8 -m-6 bg-gradient-to-r from-red-500/20 to-slate-900/50 rounded-t-3xl border-b border-slate-800/50">
                 <a href="{{ route('movies.index') }}">
-                    <span class="text-4xl font-black bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg">
+                    <span class="text-4xl font-black bg-gradient-to-r from-red-500 via-red-400 to-orange-500 bg-clip-text text-transparent drop-shadow-lg">
                         🎬 CineVerse
                     </span>
                 </a>
@@ -47,7 +47,7 @@
 
                     <div>
                         <label for="otp" class="block text-sm font-semibold text-slate-300 mb-4 flex items-center justify-center gap-3">
-                            <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             Enter 6-digit OTP
@@ -62,7 +62,7 @@
                                 required
                                 autofocus
                                 autocomplete="one-time-code"
-                                class="otp-input w-full px-8 py-6 bg-slate-800/70 border-2 border-slate-700/50 rounded-3xl text-2xl font-bold text-center tracking-widest focus:ring-4 focus:ring-purple-500/40 focus:border-purple-500/70 transition-all duration-300 shadow-inner hover:shadow-lg backdrop-blur-sm uppercase letter-spacing-8 @error('otp') ring-2 ring-red-500/50 border-red-500/70 @enderror"
+                                class="otp-input w-full px-8 py-6 bg-slate-800/70 border-2 border-slate-700/50 rounded-3xl text-2xl font-bold text-center tracking-widest focus:ring-4 focus:ring-red-500/40 focus:border-red-500/70 transition-all duration-300 shadow-inner hover:shadow-lg backdrop-blur-sm uppercase letter-spacing-8 @error('otp') ring-2 ring-red-500/50 border-red-500/70 @enderror"
                                 placeholder="000000"
                             >
                             @error('otp')
@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 uppercase">
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 uppercase">
                         <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
@@ -111,7 +111,10 @@
 
                     <!-- Name -->
                     <div>
-                        <label for="name" class="block text-sm font-semibold text-slate-300 mb-3">
+                        <label for="name" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
                             Full Name
                         </label>
                         <input
@@ -121,17 +124,25 @@
                             value="{{ old('name') }}"
                             required
                             autocomplete="name"
-                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('name') ring-2 ring-red-500/50 border-red-500/70 @enderror"
+                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-red-500/30 focus:border-red-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('name') ring-2 ring-red-500/50 border-red-500/70 @enderror"
                             placeholder="John Doe"
                         >
                         @error('name')
-                            <p class="mt-3 text-sm text-red-400">{{ $message }}</p>
+                            <p class="mt-3 text-sm text-red-400 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-2 0v4a1 1 0 102 0V5z" clip-rule="evenodd"/>
+                                </svg>
+                                {{ $message }}
+                            </p>
                         @enderror
                     </div>
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block text-sm font-semibold text-slate-300 mb-3">
+                        <label for="email" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5 3a9 9 0 01-18 0m-.5 0a9.5 9.5 0 0119.5 0z"/>
+                            </svg>
                             Gmail Address (for OTP verification)
                         </label>
                         <input
@@ -141,17 +152,25 @@
                             value="{{ old('email') }}"
                             required
                             autocomplete="email"
-                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('email') ring-2 ring-red-500/50 border-red-500/70 @enderror"
+                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-red-500/30 focus:border-red-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('email') ring-2 ring-red-500/50 border-red-500/70 @enderror"
                             placeholder="your.email@gmail.com"
                         >
                         @error('email')
-                            <p class="mt-3 text-sm text-red-400">{{ $message }}</p>
+                            <p class="mt-3 text-sm text-red-400 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-2 0v4a1 1 0 102 0V5z" clip-rule="evenodd"/>
+                                </svg>
+                                {{ $message }}
+                            </p>
                         @enderror
                     </div>
 
                     <!-- Password -->
                     <div>
-                        <label for="password" class="block text-sm font-semibold text-slate-300 mb-3">
+                        <label for="password" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
                             Password (min 8 chars)
                         </label>
                         <input
@@ -161,17 +180,25 @@
                             required
                             minlength="8"
                             autocomplete="new-password"
-                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('password') ring-2 ring-red-500/50 border-red-500/70 @enderror"
+                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-red-500/30 focus:border-red-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg @error('password') ring-2 ring-red-500/50 border-red-500/70 @enderror"
                             placeholder="•••••••••••••"
                         >
                         @error('password')
-                            <p class="mt-3 text-sm text-red-400">{{ $message }}</p>
+                            <p class="mt-3 text-sm text-red-400 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-2 0v4a1 1 0 102 0V5z" clip-rule="evenodd"/>
+                                </svg>
+                                {{ $message }}
+                            </p>
                         @enderror
                     </div>
 
                     <!-- Confirm Password -->
                     <div>
-                        <label for="password_confirmation" class="block text-sm font-semibold text-slate-300 mb-3">
+                        <label for="password_confirmation" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
                             Confirm Password
                         </label>
                         <input
@@ -180,12 +207,14 @@
                             name="password_confirmation"
                             required
                             autocomplete="new-password"
-                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-purple-500/30 focus:border-purple-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg"
+                            class="w-full px-6 py-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl text-white placeholder-slate-400 focus:ring-4 focus:ring-red-500/30 focus:border-red-500/60 transition-all duration-300 backdrop-blur-sm shadow-inner hover:shadow-md text-lg"
                             placeholder="•••••••••••••"
                         >
                     </div>
 
-                    <button type="submit" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 uppercase\">\n                        <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n                            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\"/>
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 uppercase">
+                        <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         Send Verification Code
                     </button>

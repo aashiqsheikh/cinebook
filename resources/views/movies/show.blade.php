@@ -3,6 +3,28 @@
 @section('content')
 
 <!-- Movie Hero Header -->
+<!-- Flash Messages -->
+@if (session('success'))
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-6 relative z-10">
+        <div class="p-4 bg-green-900/60 border border-green-500/50 rounded-xl text-green-100 flex items-center gap-3 shadow-lg">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="font-medium text-sm">{{ session('success') }}</span>
+        </div>
+    </div>
+@endif
+@if (session('error'))
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 mb-6 relative z-10">
+        <div class="p-4 bg-red-900/60 border border-red-500/50 rounded-xl text-red-100 flex items-center gap-3 shadow-lg">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="font-medium text-sm">{{ session('error') }}</span>
+        </div>
+    </div>
+@endif
+
 <section class="relative bg-gradient-to-br from-slate-900 to-slate-800 py-12 md:py-16 border-b border-slate-800 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div class="grid lg:grid-cols-3 gap-8 items-start">
@@ -105,16 +127,49 @@
                     @csrf
                     <div>
                         <label class="block text-sm font-medium text-slate-300 mb-2">Your Rating</label>
-                        <div class="flex items-center gap-0.5">
+                    <div class="flex items-center gap-0.5" id="star-rating">
                             @for($i = 5; $i >= 1; $i--)
-                                <label>
+                                <label class="star-label" data-value="{{ $i }}">
                                     <input type="radio" name="rating" value="{{ $i }}" class="sr-only" {{ old('rating') == $i ? 'checked' : '' }} required>
-                                    <svg class="w-8 h-8 cursor-pointer transition-all {{ old('rating') >= $i ? 'text-yellow-400 fill-current' : 'text-slate-600 hover:text-yellow-400' }}" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="star-svg w-8 h-8 cursor-pointer transition-all {{ old('rating') >= $i ? 'text-yellow-400 fill-current' : 'text-slate-600 hover:text-yellow-400' }}" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                     </svg>
                                 </label>
                             @endfor
                         </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const container = document.getElementById('star-rating');
+                                const labels = container.querySelectorAll('.star-label');
+                                function updateStars(val) {
+                                    labels.forEach(function(lbl) {
+                                        const v = parseInt(lbl.dataset.value);
+                                        const svg = lbl.querySelector('.star-svg');
+                                        if (v <= val) {
+                                            svg.classList.remove('text-slate-600');
+                                            svg.classList.add('text-yellow-400','fill-current');
+                                        } else {
+                                            svg.classList.remove('text-yellow-400','fill-current');
+                                            svg.classList.add('text-slate-600');
+                                        }
+                                    });
+                                }
+                                labels.forEach(function(lbl) {
+                                    lbl.addEventListener('click', function() {
+                                        updateStars(parseInt(this.dataset.value));
+                                    });
+                                    lbl.addEventListener('mouseenter', function() {
+                                        updateStars(parseInt(this.dataset.value));
+                                    });
+                                });
+                                container.addEventListener('mouseleave', function() {
+                                    const checked = container.querySelector('input[name="rating"]:checked');
+                                    updateStars(checked ? parseInt(checked.value) : 0);
+                                });
+                                const checked = container.querySelector('input[name="rating"]:checked');
+                                if (checked) updateStars(parseInt(checked.value));
+                            });
+                        </script>
                         @error('rating')
                             <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                         @enderror
@@ -169,7 +224,7 @@
                                 <p class="text-xs text-slate-500">{{ $rating->created_at->diffForHumans() }}</p>
                             </div>
                             @if($rating->user_id === Auth::id())
-                                <form method="POST" action="{{ route('ratings.destroy', [$movie, $rating->id]) }}" class="inline">
+                                <form method="POST" action="{{ route('ratings.destroy', $movie) }}" class="inline">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="p-2 text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all group-hover:scale-105" onclick="return confirm('Remove your rating?')">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -246,7 +301,7 @@
                                 </div>
 
                                 <a href="{{ route('booking.select-seats', $show->id) }}" class="block w-full text-center px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
-                                    Book Now
+                                    <i class="fas fa-ticket mr-1.5"></i>Book Now
                                 </a>
                             </div>
                         </div>

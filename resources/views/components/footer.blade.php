@@ -6,7 +6,7 @@
             <!-- Column 1: Logo & About -->
             <div>
                 <a href="{{ url('/') }}" class="text-2xl font-bold text-red-500 mb-4 block">
-                    🎬 CineBook
+                    🎬 CineVerse
                 </a>
                 <p class="text-slate-400 text-sm leading-relaxed">
                     Your ultimate destination for movie tickets and cinema experiences. Book your favorite movies with ease.
@@ -101,7 +101,7 @@
         <!-- Copyright Section -->
         <div class="text-center">
             <p class="text-slate-500 text-sm">
-                &copy; 2026 CineBook. All rights reserved.
+                &copy; 2026 CineVerse. All rights reserved.
             </p>
         </div>
     </div>

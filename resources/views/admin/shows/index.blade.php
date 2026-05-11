@@ -16,13 +16,20 @@
                     </h1>
                     <p class="text-2xl md:text-3xl text-gray-300 font-semibold opacity-90 max-w-xl leading-relaxed">Add, edit, and remove show timings with precision</p>
                 </div>
-                <a href="{{ route('admin.shows.create') }}" class="group bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-14 py-8 rounded-3xl font-bold text-2xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center whitespace-nowrap border border-orange-500/50">
-                    <i class="fas fa-plus mr-4 text-3xl group-hover:scale-110 transition-transform"></i>
-                    Add Show
-                </a>
-            </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <form action="{{ route('admin.shows.generate') }}" method="POST" onsubmit="return confirm('This will auto-generate shows for the next 7 days. Continue?')">
+                        @csrf
+                        <button type="submit" class="group bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-10 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center whitespace-nowrap border border-emerald-500/50">
+                            <i class="fas fa-magic mr-3 text-2xl group-hover:scale-110 transition-transform"></i>
+                            Auto Generate
+                        </button>
+                    </form>
+                    <a href="{{ route('admin.shows.create') }}" class="group bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-14 py-8 rounded-3xl font-bold text-2xl shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 flex items-center whitespace-nowrap border border-orange-500/50">
+                        <i class="fas fa-plus mr-4 text-3xl group-hover:scale-110 transition-transform"></i>
+                        Add Show
+                    </a>
+                </div>
         </div>
-    </div>
 <div class="container mb-5">
     @if(session('success'))
         <div class="mb-12 p-8 bg-gradient-to-r from-emerald-900/80 to-teal-900/80 border-l-8 border-emerald-400 rounded-3xl backdrop-blur-2xl shadow-2xl ring-2 ring-emerald-400/50 mx-auto max-w-4xl">
@@ -37,7 +44,21 @@
                     <i class="fas fa-times text-2xl text-gray-300 hover:text-white"></i>
                 </button>
             </div>
-        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-12 p-8 bg-gradient-to-r from-red-900/80 to-orange-900/80 border-l-8 border-red-400 rounded-3xl backdrop-blur-2xl shadow-2xl ring-2 ring-red-400/50 mx-auto max-w-4xl">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-5">
+                    <div class="p-4 bg-red-500/40 rounded-3xl ring-4 ring-red-400/60 shadow-2xl">
+                        <i class="fas fa-exclamation-circle text-red-400 text-4xl"></i>
+                    </div>
+                    <span class="text-3xl font-bold text-white tracking-wide leading-tight">{{ session('error') }}</span>
+                </div>
+                <button onclick="this.closest('div').remove()" class="p-4 hover:bg-white/30 rounded-3xl transition-all duration-300 hover:scale-125 hover:rotate-90 shrink-0">
+                    <i class="fas fa-times text-2xl text-gray-300 hover:text-white"></i>
+                </button>
+            </div>
     @endif
     <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-700/70 rounded-4xl shadow-2xl overflow-hidden ring-2 ring-orange-800/50 p-2">
         <div class="p-10 rounded-3xl bg-gradient-to-b from-gray-950/50 to-slate-950">
@@ -94,7 +115,6 @@
                     <div class="inline-flex bg-gradient-to-r from-slate-900/60 to-gray-900/60 backdrop-blur-xl rounded-3xl p-8 border border-slate-700/50 shadow-2xl">
                         {{ $shows->links() }}
                     </div>
-                </div>
             @else
                 <div class="text-center py-32 px-16">
                     <div class="w-40 h-40 bg-gradient-to-br from-orange-900/60 to-amber-900/60 rounded-4xl flex items-center justify-center mx-auto mb-16 shadow-2xl ring-8 ring-orange-800/50 backdrop-blur-xl p-8">
@@ -109,7 +129,5 @@
                 </div>
             @endif
         </div>
-    </div>
 </div>
 @endsection
-

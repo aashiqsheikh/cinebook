@@ -89,5 +89,36 @@ class ShowController extends Controller
         return redirect()->route('admin.shows.index')
             ->with('success', 'Show deleted successfully.');
     }
+
+    /**
+     * Automatically generate shows using the console command.
+     */
+    public function generate(Request $request)
+    {
+        $days = $request->input('days', 7);
+        $theatreId = $request->input('theatre_id');
+        $movieId = $request->input('movie_id');
+
+        $options = ['--days' => $days];
+
+        if ($theatreId) {
+            $options['--theatre'] = $theatreId;
+        }
+
+        if ($movieId) {
+            $options['--movie'] = $movieId;
+        }
+
+        $exitCode = \Illuminate\Support\Facades\Artisan::call('shows:generate', $options);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+
+        if ($exitCode === 0) {
+            return redirect()->route('admin.shows.index')
+                ->with('success', trim($output));
+        }
+
+        return redirect()->route('admin.shows.index')
+            ->with('error', 'Failed to generate shows. ' . trim($output));
+    }
 }
 

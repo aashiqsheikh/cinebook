@@ -8,6 +8,24 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     /**
+     * Display the home / welcome page.
+     */
+    public function home()
+    {
+        $nowShowingMovies = Movie::where('release_date', '<=', now())
+            ->orderBy('release_date', 'desc')
+            ->take(4)
+            ->get();
+
+        $upcomingMovies = Movie::where('release_date', '>', now())
+            ->orderBy('release_date', 'asc')
+            ->take(6)
+            ->get();
+
+        return view('welcome', compact('nowShowingMovies', 'upcomingMovies'));
+    }
+
+    /**
      * Display movies page (no date filters).
      */
     public function index(Request $request)
@@ -69,6 +87,31 @@ $shows = \App\Models\Show::with(['theatre'])
             ->take(6)
             ->get();
         return $movies;
+    }
+
+    /**
+     * Display coming soon / upcoming movies.
+     */
+    public function comingSoon(Request $request)
+    {
+        $query = Movie::where('release_date', '>', now());
+
+        // Search by title
+        if ($request->filled('title')) {
+            $query->where('title', 'LIKE', '%' . $request->title . '%');
+        }
+
+        // Filter by genre
+        if ($request->filled('genre')) {
+            $query->where('genre', $request->genre);
+        }
+
+        $movies = $query->orderBy('release_date', 'asc')->paginate(12);
+        $movies->appends($request->only(['title', 'genre']));
+
+        $genres = Movie::distinct()->pluck('genre');
+
+        return view('movies.coming-soon', compact('movies', 'genres'));
     }
 }
 

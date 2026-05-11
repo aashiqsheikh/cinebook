@@ -13,8 +13,9 @@ use App\Http\Controllers\TheatreController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
-Route::get('/', [MovieController::class, 'index'])->name('home');
+Route::get('/', [MovieController::class, 'home'])->name('home');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/movies/coming-soon', [MovieController::class, 'comingSoon'])->name('movies.coming-soon');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 
 // Google OAuth Routes
@@ -85,8 +86,8 @@ Route::post('/payment/verify', [PaymentController::class, 'verify'])->name('paym
         Route::get('/shows/{show}/edit', [ShowController::class, 'edit'])->name('shows.edit');
         Route::put('/shows/{show}', [ShowController::class, 'update'])->name('shows.update');
         Route::delete('/shows/{show}', [ShowController::class, 'destroy'])->name('shows.destroy');
+        Route::post('/shows/generate', [ShowController::class, 'generate'])->name('shows.generate');
 
         Route::get('/bookings', [AdminController::class, 'bookings'])->name('bookings.index');
     });
 });
-

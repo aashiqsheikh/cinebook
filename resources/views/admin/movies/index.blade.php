@@ -1,7 +1,5 @@
 @extends('layouts.admin')
 
-
-
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Hero Header -->
@@ -20,6 +18,10 @@
                     <a href="{{ route('admin.movies.create') }}" class="group bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
                         <i class="fas fa-plus mr-2 group-hover:scale-110 transition-transform duration-300 text-sm"></i>
                         Add New Movie
+                    </a>
+                    <a href="{{ route('admin.movies.create', ['upcoming' => 1]) }}" class="group bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-clock mr-2 group-hover:scale-110 transition-transform duration-300 text-sm"></i>
+                        Add Upcoming Movie
                     </a>
                 </div>
             </div>
@@ -86,10 +88,9 @@
                             </th>
                         </tr>
                     </thead>
-<tbody class="divide-y divide-slate-800/50">
-                            @foreach($movies as $movie)
-                               <tr class="group hover:bg-slate-800/60 hover:scale-[1.01] transition-all duration-300 hover:shadow-xl">
-
+                    <tbody class="divide-y divide-slate-800/50">
+                        @foreach($movies as $movie)
+                            <tr class="group hover:bg-slate-800/60 hover:scale-[1.01] transition-all duration-300 hover:shadow-xl">
                                 <td class="px-4 py-6">
                                     @if($movie->poster)
                                         <img src="{{ asset($movie->poster) }}" alt="{{ $movie->title }}" class="w-28 h-40 object-cover rounded-2xl ring-4 ring-slate-800/50 hover:ring-blue-500/50 hover:scale-105 transition-all duration-300 shadow-2xl"
@@ -106,14 +107,10 @@
                                 <td class="px-6 py-6 max-w-md">
                                     <div class="font-black text-xl md:text-2xl text-white mb-2 line-clamp-1 group-hover:text-blue-300 transition-colors pr-4">{{ $movie->title }}</div>
                                     @if(\Carbon\Carbon::parse($movie->release_date)->isFuture())
-    <span class="inline-block mt-2 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
-        Coming Soon
-    </span>
-@else
-    <span class="inline-block mt-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-        Now Showing
-    </span>
-@endif
+                                        <span class="inline-block mt-2 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">Coming Soon</span>
+                                    @else
+                                        <span class="inline-block mt-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">Now Showing</span>
+                                    @endif
                                     <div class="text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-2 text-base pr-4">{{ Str::limit($movie->description, 120) }}</div>
                                 </td>
                                 <td class="px-6 py-6 text-center">
@@ -129,20 +126,35 @@
                                 <td class="px-6 py-6 text-center">
                                     <span class="inline-flex px-6 py-3 bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold rounded-2xl text-lg shadow-lg ring-2 ring-purple-400/50 hover:shadow-purple-500/25 transition-all hover:scale-105">{{ \App\Helpers\DateHelper::formatAdminDate($movie->release_date) }}</span>
                                 </td>
-                                <td class="px-6 py-6">
-                                    <div class="flex gap-3 justify-center">
-                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="group p-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="Edit Movie">
-                                            <i class="fas fa-edit text-sm group-hover:scale-110 transition-transform"></i>
+                                <td class="px-6 py-6 align-middle">
+                                    <div class="flex items-center justify-center gap-2.5">
+                                        <!-- Edit -->
+                                        <a href="{{ route('admin.movies.edit', $movie) }}"
+                                           class="group relative inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-white rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/50 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                                           title="Edit Movie">
+                                            <i class="fas fa-pen text-sm transition-transform duration-300 group-hover:rotate-12"></i>
+                                            <span class="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-slate-800 text-white text-[11px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-slate-700">Edit Movie</span>
                                         </a>
-                                        <form action="{{ route('admin.movies.destroy', $movie) }}" method="POST" class="inline-block" onsubmit="return confirm('Delete {{ $movie->title }}?')">
+
+                                        <!-- Delete -->
+                                        <form action="{{ route('admin.movies.destroy', $movie) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete "{{ $movie->title }}"? This action cannot be undone.')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="group p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="Delete Movie">
-                                                <i class="fas fa-trash text-sm group-hover:scale-110 transition-transform"></i>
+                                            <button type="submit"
+                                                    class="group relative inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white rounded-xl shadow-lg shadow-red-500/20 hover:shadow-red-500/50 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                                                    title="Delete Movie">
+                                                <i class="fas fa-trash text-sm transition-transform duration-300 group-hover:rotate-12"></i>
+                                                <span class="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-slate-800 text-white text-[11px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-slate-700">Delete Movie</span>
                                             </button>
                                         </form>
-                                        <a href="{{ route('movies.show', $movie) }}" class="group p-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300" title="View Public Page" target="_blank">
-                                            <i class="fas fa-eye text-sm group-hover:scale-110 transition-transform"></i>
+
+                                        <!-- View -->
+                                        <a href="{{ route('movies.show', $movie) }}"
+                                           class="group relative inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 hover:from-emerald-500 hover:to-teal-600 text-white rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/50 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                                           title="View Public Page"
+                                           target="_blank">
+                                            <i class="fas fa-eye text-sm transition-transform duration-300 group-hover:rotate-12"></i>
+                                            <span class="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-slate-800 text-white text-[11px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-slate-700">View Public Page</span>
                                         </a>
                                     </div>
                                 </td>
@@ -178,3 +190,4 @@
     </div>
 </div>
 @endsection
+

@@ -32,6 +32,7 @@
                 @endif
 
                 <a href="{{ route('movies.index') }}" class="text-slate-300 hover:text-white transition-colors font-medium">Movies</a>
+                <a href="{{ route('movies.coming-soon') }}" class="text-slate-300 hover:text-white transition-colors font-medium">Coming Soon</a>
                 <a href="{{ route('bookings.my') }}" class="text-slate-300 hover:text-white transition-colors font-medium">My Bookings</a>
 
                 @auth
@@ -73,6 +74,7 @@
         <div id="mobile-menu" class="md:hidden hidden border-t border-slate-800 bg-slate-900">
             <div class="px-2 py-2 space-y-1">
                 <a href="{{ route('movies.index') }}" class="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors font-medium">Movies</a>
+                <a href="{{ route('movies.coming-soon') }}" class="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors font-medium">Coming Soon</a>
                 <a href="{{ route('bookings.my') }}" class="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors font-medium">My Bookings</a>
 
                 @auth
