@@ -3,10 +3,10 @@
 @section('content')
 
 <!-- Hero Header -->
-<div class="relative bg-gradient-to-r from-slate-900 via-purple-900/20 to-slate-900 pt-32 pb-20 overflow-hidden">
+<div class="relative bg-gradient-to-r from-slate-900 via-red-900/20 to-slate-900 pt-32 pb-20 overflow-hidden">
     <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMSIgc3R5bGU9InN0b3AtY29sb3I6I2ZmZmZmZjA7c3RvcC1vcGFjaXR5OjAuMDk7c3R5bGU9c3RvcC1jb2xvcjojZTY1ZjllMDA7c3R5bGU9c3RvcC1vcGFjaXR5OjAuMjQiLz4KPC9zdmc+')] opacity-20"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-white via-purple-100 to-slate-200 bg-clip-text text-transparent mb-6 drop-shadow-2xl">
+<h1 class="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-white via-red-100 to-slate-200 bg-clip-text text-transparent mb-6 drop-shadow-2xl">
             Coming Soon
         </h1>
         <p class="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
@@ -20,7 +20,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-8 lg:p-12 shadow-2xl">
             <form method="GET" action="{{ route('movies.coming-soon') }}" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-end">
-                <!-- Search Input -->
+<!-- Search Input -->
                 <div class="lg:col-span-2">
                     <label class="sr-only">Search Movies</label>
                     <div class="relative">
@@ -32,7 +32,7 @@
                             name="title"
                             value="{{ request('title') }}"
                             placeholder="Search upcoming titles..."
-                            class="w-full pl-12 pr-4 py-5 bg-slate-800/50 border-2 border-slate-700/50 focus:border-purple-500/70 focus:bg-slate-800/70 rounded-2xl text-white placeholder-slate-400 transition-all duration-300 text-lg backdrop-blur-sm shadow-inner hover:shadow-md hover:border-slate-600/50"
+                            class="w-full pl-12 pr-4 py-5 bg-slate-800/50 border-2 border-slate-700/50 focus:border-red-500/70 focus:bg-slate-800/70 rounded-2xl text-white placeholder-slate-400 transition-all duration-300 text-lg backdrop-blur-sm shadow-inner hover:shadow-md hover:border-slate-600/50"
                         >
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                 </div>
 
                 <!-- Search Button -->
-                <button
+<button
                     type="submit"
-                    class="w-full lg:w-auto px-8 py-5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transform transition-all duration-300 uppercase tracking-wide col-span-1 lg:col-span-1"
+                    class="w-full lg:w-auto px-8 py-5 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transform transition-all duration-300 uppercase tracking-wide col-span-1 lg:col-span-1"
                 >
                     <svg class="inline w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -75,7 +75,7 @@
             <a href="{{ route('movies.index') }}" class="px-8 py-3 rounded-xl text-lg font-bold text-slate-400 hover:text-white transition-all duration-300">
                 Now Showing
             </a>
-            <a href="{{ route('movies.coming-soon') }}" class="px-8 py-3 rounded-xl text-lg font-bold bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg">
+<a href="{{ route('movies.coming-soon') }}" class="px-8 py-3 rounded-xl text-lg font-bold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg">
                 Coming Soon
             </a>
         </div>
@@ -91,9 +91,9 @@
                     $daysUntil = now()->diffInDays($movie->release_date, false);
                     $isSoon = $daysUntil >= 0 && $daysUntil <= 7;
                 @endphp
-                <article class="card-lift group">
+<article class="card-lift group">
                     <div class="block">
-                        <div class="bg-slate-900/70 backdrop-blur border border-slate-800/60 rounded-3xl overflow-hidden shadow-lg hover:shadow-purple-500/10 hover:border-purple-500/20 transition-all duration-500">
+                        <div class="bg-slate-900/70 backdrop-blur border border-slate-800/60 rounded-3xl overflow-hidden shadow-lg hover:shadow-red-500/10 hover:border-red-500/20 transition-all duration-500">
                             <!-- Poster -->
                             <div class="relative aspect-[2/3] overflow-hidden">
                                 @if($movie->poster)
@@ -139,7 +139,7 @@
 
                             <!-- Info -->
                             <div class="p-4">
-                                <h3 class="text-lg sm:text-xl font-bold text-white mb-1 group-hover:text-purple-400 transition-colors line-clamp-1">{{ $movie->title }}</h3>
+<h3 class="text-lg sm:text-xl font-bold text-white mb-1 group-hover:text-red-400 transition-colors line-clamp-1">{{ $movie->title }}</h3>
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="inline-flex items-center px-2.5 py-0.5 bg-slate-800 text-slate-300 text-xs font-medium rounded-lg">{{ $movie->genre }}</span>
                                     <span class="text-slate-500 text-xs">{{ $movie->duration }} min</span>
@@ -147,12 +147,12 @@
                                 @php
                                     $timeText = str_replace(['mos', 'wk', 'dy', 'hr', 'min', 'sec', ' from now', ' ago'], ['mo', 'w', 'd', 'h', 'm', 's', '', ''], $movie->release_date->diffForHumans(['parts' => 2, 'short' => true]));
                                 @endphp
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold tracking-wide text-white uppercase bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg border border-white/10">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold tracking-wide text-white uppercase bg-gradient-to-r from-blue-500 to-red-600 rounded-lg border border-white/10">
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
-                                    In {{ $timeText }}
-                                </span>
+In {{ $timeText }}
+                                    </span>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
             <p class="text-xl text-slate-400 mb-12 max-w-md mx-auto leading-relaxed">
                 Check back later for exciting new releases.
             </p>
-            <a href="{{ route('movies.index') }}" class="inline-flex items-center px-10 py-5 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 text-lg">
+from-red-500 to-red-600 hover:from-red-600 hover:to-red-700
                 <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                 </svg>
